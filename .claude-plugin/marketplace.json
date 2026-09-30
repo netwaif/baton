@@ -1,0 +1,14 @@
+{
+  "name": "baton",
+  "description": "데스크톱 앱 안의 Claude Code를 코덱스 앱·헤르메스와 대화로 연결한다 — 한 번 연결하면 그 뒤로는 서로 일을 넘기고 답을 받는다(바통 터치). 터미널 없이 앱 안에서만.",
+  "owner": { "name": "netwaif", "email": "netwaif@users.noreply.github.com" },
+  "plugins": [
+    {
+      "name": "baton",
+      "description": "\"코덱스 <세션ID>와 연결해\", \"코덱스에 이미지 시켜\", \"헤르메스에게 이 파일 보내\", \"메시지 받을 준비해\" — 앱 간 대화 연결 스킬. agentlayer 1.12.0+의 inbox open/wait·send 위에서 동작하고 없으면 brew로 설치한다.",
+      "version": "0.1.0",
+      "source": "./plugins/baton",
+      "author": { "name": "netwaif" }
+    }
+  ]
+}
