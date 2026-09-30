@@ -43,7 +43,7 @@ description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세�
    회신이 필요하면 셸에서 agentlayer send al-xxxxxx \"<회신>\" 으로 보내라."
    ```
    (`al-xxxxxx`가 없으면 먼저 `inbox open`·`wait`를 켠다.)
-3. 출력의 `files`(원격 경로)·`handle`을 사용자에게 보고한다. 디스코드 게시는 사용자가 확인한다.
+3. 출력의 `handle`(카드, `t_…`)로 답을 기다린다(백그라운드 Bash): `agentlayer inbox wait --name <폴더명> --timeout 2h --remote <원격이름>:<handle>`. 카드가 끝나면 `from: <원격이름>` 다음에 결과가 오고, 질문이면 `[WAITING] …`이 온다. 로컬 편지와 같은 대기 하나로 받는다(ssh·로컬 구분 없음). 디스코드 게시는 사용자가 확인한다.
 
 ## 받을 준비만 — "메시지 받을 준비해"
 `inbox open` + 백그라운드 `inbox wait`만 하고 주소를 알린다: "상대에게 `agentlayer send al-xxxxxx \"…\"` 로 보내라고 하세요."
