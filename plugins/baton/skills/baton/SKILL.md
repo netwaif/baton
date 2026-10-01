@@ -6,7 +6,13 @@ description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세�
 # baton — 다른 앱과 대화 연결
 
 ## 준비(한 번)
-`agentlayer version`이 1.12.0 이상인지 확인한다. 없거나 낮으면 앱 안 Bash로 `brew install netwaif/tap/agentlayer`(이미 있으면 `brew upgrade netwaif/tap/agentlayer`)를 실행하고 다시 확인한다. brew가 없으면 https://brew.sh 설치를 안내하고 멈춘다.
+`agentlayer version`이 1.12.0 이상인지 확인한다. 없거나 낮으면 앱 안 Bash로 설치하고 다시 확인한다.
+- **맥**: `brew install netwaif/tap/agentlayer`(이미 있으면 `brew upgrade netwaif/tap/agentlayer`). brew가 없으면 아래 스크립트를 쓴다.
+- **리눅스·윈도우 WSL2**(brew 없는 맥도): `curl -fsSL https://raw.githubusercontent.com/netwaif/agentlayer/main/install.sh | bash` — 릴리즈 파일을 `~/.local/bin/agentlayer`에 놓는다.
+- **윈도우(WSL 밖)**: 바이너리가 없다. "WSL2 안에서 연 세션에서만 됩니다"라고 알리고 멈춘다.
+
+설치했는데 `agentlayer`를 못 찾으면 PATH 문제다. `~/.local/bin/agentlayer`·`/opt/homebrew/bin/agentlayer`·`/usr/local/bin/agentlayer` 중 있는 절대 경로로 부르고, 상대에게 보내는 회신 명령에도 그 절대 경로를 적는다.
+상대(코덱스·헤르메스)에는 이 스킬을 설치하지 않는다. 같은 컴퓨터의 `agentlayer`를 셸로 한 줄 치기만 한다.
 
 ## 규칙 세 가지
 - `agentlayer send`의 플래그(`--json`·`--file`·`--cwd`)는 **대상 앞에** 쓴다. 뒤에 쓰면 본문으로 들어간다.

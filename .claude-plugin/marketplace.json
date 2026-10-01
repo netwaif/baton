@@ -5,7 +5,7 @@
   "plugins": [
     {
       "name": "baton",
-      "description": "\"코덱스 <세션ID>와 연결해\", \"코덱스에 이미지 시켜\", \"헤르메스에게 이 파일 보내\", \"메시지 받을 준비해\" — 앱 간 대화 연결 스킬. agentlayer 1.12.0+의 inbox open/wait·send 위에서 동작하고 없으면 brew로 설치한다.",
+      "description": "\"코덱스 <세션ID>와 연결해\", \"코덱스에 이미지 시켜\", \"헤르메스에게 이 파일 보내\", \"메시지 받을 준비해\" — 앱 간 대화 연결 스킬. agentlayer 1.12.0+의 inbox open/wait·send 위에서 동작하고 없으면 스킬이 설치한다(맥 brew, 리눅스·WSL2 스크립트).",
       "version": "0.1.0",
       "source": "./plugins/baton",
       "author": { "name": "netwaif" }
