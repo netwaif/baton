@@ -15,9 +15,11 @@
    메시지 받을 준비해
    ```
 
+디스코드에서 헤르메스에게 "Claude에게 … 전해 줘"라고 한 요청도 받는다. 세션에 "헤르메스 편지도 받아"라고 말하면 된다.
+
 터미널에 익숙하면 입력창에 `/plugin marketplace add netwaif/baton` 다음 `/plugin install baton@baton`을 쳐도 같다.
 
-필요한 바이너리 `agentlayer`(1.12.0+)는 스킬이 첫 실행에 설치한다 — 맥은 brew, 리눅스·윈도우 WSL2는 설치 스크립트. 윈도우는 WSL2 안에서만 된다(WSL 밖 바이너리 없음).
+필요한 바이너리 `agentlayer`(1.12.2+)는 스킬이 첫 실행에 설치한다 — 맥은 brew, 리눅스·윈도우 WSL2는 설치 스크립트. 윈도우는 WSL2 안에서만 된다(WSL 밖 바이너리 없음).
 코덱스·헤르메스 쪽에는 아무것도 설치하지 않는다. 같은 컴퓨터의 `agentlayer`만 있으면 된다.
 
 동작 원리: 세션이 `agentlayer inbox open`으로 고유 주소를 받고, 상대(코덱스·헤르메스)는 `agentlayer send <주소> "…"`로 회신한다. 세션은 `inbox wait`를 백그라운드로 켜 두어 답이 오면 받는다. 자세한 설계: agentlayer 레포 `docs/superpowers/specs/2026-09-30-app-handoff-design.md`.

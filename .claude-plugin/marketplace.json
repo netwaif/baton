@@ -9,7 +9,7 @@
     {
       "name": "baton",
       "description": "Claude 앱에서 코덱스 앱·헤르메스에게 일을 넘기고 답을 받습니다. \"코덱스에 이미지 시켜\", \"헤르메스에게 이 파일 보내\", \"메시지 받을 준비해\"처럼 말하면 됩니다. 필요한 프로그램(agentlayer)은 처음 쓸 때 알아서 설치합니다.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "source": "./plugins/baton",
       "author": {
         "name": "netwaif"

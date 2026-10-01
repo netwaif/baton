@@ -1,12 +1,12 @@
 ---
 name: baton
-description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세션·헤르메스)를 대화로 연결해 일을 넘기고 답을 받는다. "코덱스 <세션ID>와 연결해", "코덱스에 (이미지 만들어 달라고) 시켜", "이거 코덱스로 넘겨", "헤르메스에게 이 파일(스킬) 보내", "메시지 받을 준비해", "연결 끊어", "/baton" 에 사용. 터미널 없이 데스크톱 앱 안에서만 쓴다. 한 번 연결하면 그 뒤로는 사용자가 세션 번호를 다시 말하지 않아도 이어진다.
+description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세션·헤르메스)를 대화로 연결해 일을 넘기고 답을 받는다. "코덱스 <세션ID>와 연결해", "코덱스에 (이미지 만들어 달라고) 시켜", "이거 코덱스로 넘겨", "헤르메스에게 이 파일(스킬) 보내", "메시지 받을 준비해", "헤르메스(디스코드) 편지도 받아", "연결 끊어", "/baton" 에 사용. 터미널 없이 데스크톱 앱 안에서만 쓴다. 한 번 연결하면 그 뒤로는 사용자가 세션 번호를 다시 말하지 않아도 이어진다.
 ---
 
 # baton — 다른 앱과 대화 연결
 
 ## 준비(한 번)
-`agentlayer version`이 1.12.0 이상인지 확인한다. 없거나 낮으면 앱 안 Bash로 설치하고 다시 확인한다.
+`agentlayer version`이 1.12.2 이상인지 확인한다. 없거나 낮으면 앱 안 Bash로 설치하고 다시 확인한다.
 - **맥**: `brew install netwaif/tap/agentlayer`(이미 있으면 `brew upgrade netwaif/tap/agentlayer`). brew가 없으면 아래 스크립트를 쓴다.
 - **리눅스·윈도우 WSL2**(brew 없는 맥도): `curl -fsSL https://raw.githubusercontent.com/netwaif/agentlayer/main/install.sh | bash` — 릴리즈 파일을 `~/.local/bin/agentlayer`에 놓는다.
 - **윈도우(WSL 밖)**: 바이너리가 없다. "WSL2 안에서 연 세션에서만 됩니다"라고 알리고 멈춘다.
@@ -50,6 +50,17 @@ description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세�
    ```
    (`al-xxxxxx`가 없으면 먼저 `inbox open`·`wait`를 켠다.)
 3. 출력의 `handle`(카드, `t_…`)로 답을 기다린다(백그라운드 Bash): `agentlayer inbox wait --name <폴더명> --timeout 2h --remote <원격이름>:<handle>`. 카드가 끝나면 `from: <원격이름>` 다음에 결과가 오고, 질문이면 `[WAITING] …`이 온다. 로컬 편지와 같은 대기 하나로 받는다(ssh·로컬 구분 없음). 디스코드 게시는 사용자가 확인한다.
+
+## 디스코드에서 온 요청 받기 — "헤르메스(디스코드) 편지도 받아"
+사용자가 디스코드에서 헤르메스에게 "Claude에게 … 전해 줘"라고 하면 헤르메스가 이 세션 앞으로 편지를 보낸다.
+1. 원격 이름을 `agentlayer remote list`로 확인한다. 처음 한 번은 `agentlayer remote setup <원격이름>`으로 헤르메스 쪽에 편지 명령(`claude-letter`)을 깐다.
+2. 백그라운드 Bash로 기다린다(연결돼 있으면 같은 대기에 옵션만 더한다):
+   `agentlayer inbox wait --name <폴더명> --timeout 2h --remote <원격이름> --app-mailbox`
+3. 편지가 오면 출력이 `from: <원격이름>/<보낸이>`, `letter: <원격이름>:<카드ID>`, 빈 줄, 본문 순서다. 본문의 요청을 수행한다.
+4. 답은 `letter:` 줄의 값 그대로 보낸다(파일은 `--file`, 대상 앞에):
+   `agentlayer inbox reply --file <경로> <원격이름>:<카드ID> "<답>"`
+   답하면 디스코드의 그 대화에 알림이 뜬다. **알림에는 답의 첫 줄(160자)만 보인다.** 인사말·머리말 없이 핵심을 첫 줄에 쓴다. 항목이 여럿이면 첫 줄에 ` / `로 이어 쓰고, 자세한 내용은 둘째 줄부터 쓴다(전문은 사용자가 헤르메스에게 "Claude 답 보여 줘"라고 하면 읽어 준다).
+   답한 뒤 **곧바로** 2번 대기를 다시 켠다.
 
 ## 받을 준비만 — "메시지 받을 준비해"
 `inbox open` + 백그라운드 `inbox wait`만 하고 주소를 알린다: "상대에게 `agentlayer send al-xxxxxx \"…\"` 로 보내라고 하세요."
