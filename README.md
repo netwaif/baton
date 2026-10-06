@@ -10,16 +10,19 @@
    netwaif/baton
    ```
 3. **탐색** 탭에 **Baton**이 나타난다. 오른쪽 **추가**를 누른다. 화살표를 눌러 **자동 설치**를 고르면 이 컴퓨터의 모든 프로젝트에서 쓸 수 있다.
-4. 세션을 새로 열고 이렇게 말해 본다.
+4. 세션을 새로 열고 이렇게 말해 본다(코덱스 앱에서 "세션 번호 알려줘"로 받은 번호를 넣는다).
    ```
-   메시지 받을 준비해
+   코덱스 <세션 번호> 와 연결해
    ```
+   그 뒤로는 "코덱스에 썸네일 이미지 하나 만들어 달라고 시켜"처럼 말만 하면 된다.
 
-디스코드에서 헤르메스에게 "Claude에게 … 전해 줘"라고 한 요청도 받는다. 세션에 "헤르메스 편지도 받아"라고 말하면 된다.
+헤르메스가 있으면 "헤르메스 <원격이름>에게 <스킬 이름> 스킬 보내"로 내 스킬을 보내고, 헤르메스가 자기 환경에서 쓸 수 있는지 판단해 설치하거나 이유를 답한다(디스코드에서 먼저 "내 pc에서 … 가져올게"라고 예고하면 그 대화로 답이 온다). 디스코드에서 헤르메스에게 "Claude에게 … 전해 줘"라고 한 요청도 받는다 — 세션에 "헤르메스 편지도 받아"라고 말하면 된다.
 
 터미널에 익숙하면 입력창에 `/plugin marketplace add netwaif/baton` 다음 `/plugin install baton@baton`을 쳐도 같다.
 
 필요한 바이너리 `agentlayer`(1.15.0+)는 스킬이 첫 실행에 설치한다 — 맥은 brew, 리눅스·윈도우 WSL2는 설치 스크립트. 윈도우는 WSL2 안에서만 된다(WSL 밖 바이너리 없음).
 코덱스·헤르메스 쪽에는 아무것도 설치하지 않는다. 같은 컴퓨터의 `agentlayer`만 있으면 된다.
 
-동작 원리: 세션이 `agentlayer inbox open`으로 고유 주소를 받고, 상대(코덱스·헤르메스)는 `agentlayer send <주소> "…"`로 회신한다. 세션은 `inbox wait`를 백그라운드로 켜 두어 답이 오면 받는다. 자세한 설계: agentlayer 레포 `docs/superpowers/specs/2026-09-30-app-handoff-design.md`.
+동작 원리: 세션이 `agentlayer inbox open`으로 고유 주소를 받고, 코덱스는 `agentlayer send <주소> "…"`로 회신한다. 헤르메스는 칸반 카드로 받아 카드를 완료하며 답하고, 세션의 `inbox wait --remote`가 그 결과를 받는다. 회신 방법·설치 위치·디스코드 게시 위치는 전부 `agentlayer send`가 본문에 적는다.
+
+헤르메스를 쓰려면 한 번 등록한다: `agentlayer remote add <이름> --kind hermes --local --profile <프로필> --workspace-root <절대경로>`. 등록이 헤르메스에 스킬(`claude-letter`·`pc-receive`)을 깔아 주며, **헤르메스가 이미 돌고 있으면 한 번 다시 띄워야** 그 스킬을 본다. 자세한 설계: agentlayer 레포 `docs/superpowers/specs/2026-09-30-app-handoff-design.md`.

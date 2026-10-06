@@ -15,7 +15,7 @@ description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세�
 상대(코덱스·헤르메스)에는 이 스킬을 설치하지 않는다. 같은 컴퓨터의 `agentlayer`를 셸로 한 줄 치기만 한다.
 
 ## 규칙 세 가지
-- `agentlayer send`의 플래그(`--json`·`--file`·`--cwd`)는 **대상 앞에** 쓴다. 뒤에 쓰면 본문으로 들어간다.
+- `agentlayer send`의 플래그(`--json`·`--file`·`--skill`·`--cwd`)는 **대상 앞에** 쓴다. 뒤에 쓰면 본문으로 들어간다.
 - 답을 기다리는 `inbox wait`는 **백그라운드 Bash**로 켠다. 끝나면 그 출력이 이 세션에 들어온다. 처리한 뒤 연결이 살아 있으면 곧바로 다시 켠다.
 - 짝 정보는 이 폴더의 `.baton/pair.json`에 둔다: `{"my_name","my_address","codex_session","cwd"}`. 사용자에게 세션 번호를 두 번 묻지 않는다.
 
@@ -41,8 +41,8 @@ description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세�
 
 ## 헤르메스 — "헤르메스에게 이 스킬(파일) 보내"
 사용자는 "헤르메스에게 <스킬 이름> 보내" 한마디면 된다. 묶기(폴더면 zip)·설치 위치·회신 규칙은 `agentlayer send`가 정해서 본문에 붙인다 — 스킬이 본문을 지어내지 않는다.
-1. `agentlayer remote list`로 원격 이름을 확인한다(하나면 그것, 여럿이면 묻는다). 없으면 등록 절을 안내하고 멈춘다: `agentlayer remote add <이름> --kind hermes --local --profile <프로필> --workspace-root <절대경로>` (같은 맥의 헤르메스), VPS면 `--ssh <호스트>`.
-2. 스킬이면 `--skill`, 그냥 파일이면 `--file`. 본문은 사용자가 시킨 일만(없으면 생략 — 기본은 "설치하고 쓸 수 있는지 확인해 결과 보고"):
+1. `agentlayer remote list`로 원격 이름을 확인한다(하나면 그것, 여럿이면 묻는다). 없으면 등록 절을 안내하고 멈춘다: `agentlayer remote add <이름> --kind hermes --local --profile <프로필> --workspace-root <절대경로>` (같은 컴퓨터의 헤르메스), VPS면 `--ssh <호스트>`. 등록이 헤르메스에 스킬을 깔아 주는데, **헤르메스가 이미 돌고 있으면 한 번 다시 띄워야 그 스킬을 본다**(등록 출력에도 나온다) — 사용자에게 그 한 줄을 알린다.
+2. 스킬이면 `--skill`, 그냥 파일이면 `--file`. 본문은 사용자가 시킨 일만. 시킨 일이 없으면 본문을 생략한다 — 기본은 "헤르메스가 자기 환경에서 쓸 수 있는지 판단해, 되면 설치하고 경로를, 안 되면 이유를 답한다":
    ```
    agentlayer send --json --skill <스킬 이름> <원격이름> "<사용자가 시킨 일>"
    agentlayer send --json --file <경로> <원격이름> "<사용자가 시킨 일>"
