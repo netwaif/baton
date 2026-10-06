@@ -1,6 +1,6 @@
 {
   "name": "baton",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "앱 간 대화 연결(바통 터치). 데스크톱 앱의 Claude Code 세션이 코덱스 앱 세션·로컬 헤르메스와 한 번 연결하면, 그 뒤로는 요청을 넘기고 답을 받는 일이 이어진다. agentlayer 1.12.2+ 필요(없으면 스킬이 설치 — 맥 brew, 리눅스·WSL2 스크립트).",
   "author": { "name": "netwaif" }
 }
