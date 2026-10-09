@@ -20,7 +20,7 @@
 
 터미널에 익숙하면 입력창에 `/plugin marketplace add netwaif/baton` 다음 `/plugin install baton@baton`을 쳐도 같다.
 
-필요한 바이너리 `agentlayer`(1.15.0+)는 스킬이 첫 실행에 설치한다 — 맥은 brew, 리눅스·윈도우 WSL2는 설치 스크립트. 윈도우는 WSL2 안에서만 된다(WSL 밖 바이너리 없음).
+필요한 바이너리 `agentlayer`(1.17.0+)는 스킬이 첫 실행에 설치한다 — 맥은 brew, 리눅스·윈도우 WSL2는 설치 스크립트. 윈도우는 WSL2 안의 Claude 세션(데스크톱 앱의 WSL 세션 포함)에서 쓰고, 상대는 윈도우용 코덱스 앱이다(답할 때 승인창 한 번).
 코덱스·헤르메스 쪽에는 아무것도 설치하지 않는다. 같은 컴퓨터의 `agentlayer`만 있으면 된다.
 
 동작 원리: 세션이 `agentlayer inbox open`으로 고유 주소를 받고, 코덱스는 `agentlayer send <주소> "…"`로 회신한다. 헤르메스는 칸반 카드로 받아 카드를 완료하며 답하고, 세션의 `inbox wait --remote`가 그 결과를 받는다. 회신 방법·설치 위치·디스코드 게시 위치는 전부 `agentlayer send`가 본문에 적는다.

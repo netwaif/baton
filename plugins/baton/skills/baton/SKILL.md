@@ -6,7 +6,7 @@ description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세�
 # baton — 다른 앱과 대화 연결
 
 ## 준비(한 번)
-`agentlayer version`이 1.15.0 이상인지 확인한다(`--skill`은 1.15.0부터). 없거나 낮으면 앱 안 Bash로 설치하고 다시 확인한다.
+`agentlayer version`이 1.17.0 이상인지 확인한다(`--skill`은 1.15.0부터, 윈도우 코덱스 앱 연결은 1.17.0부터). 없거나 낮으면 앱 안 Bash로 설치하고 다시 확인한다.
 - **맥**: `brew install netwaif/tap/agentlayer`(이미 있으면 `brew upgrade netwaif/tap/agentlayer`). brew가 없으면 아래 스크립트를 쓴다.
 - **리눅스·윈도우 WSL2**(brew 없는 맥도): `curl -fsSL https://raw.githubusercontent.com/netwaif/agentlayer/main/install.sh | bash` — 릴리즈 파일을 `~/.local/bin/agentlayer`에 놓는다.
 - **윈도우(WSL 밖)**: 바이너리가 없다. "WSL2 안에서 연 세션에서만 됩니다"라고 알리고 멈춘다.
@@ -30,7 +30,7 @@ description: 이 Claude 세션과 다른 앱의 에이전트(코덱스 앱 세�
    이 대화의 회신 주소는 al-xxxxxx 이다. 결과(파일 경로 포함)는 셸에서
    agentlayer send al-xxxxxx \"<결과>\" 로 보내라. 이후 이 대화의 모든 회신도 같은 주소로."
    ```
-4. "코덱스와 연결됐습니다. 답이 오면 알려 드립니다." 한 줄.
+4. "코덱스와 연결됐습니다. 답이 오면 알려 드립니다." 한 줄. 윈도우(WSL 세션)면 "코덱스 앱에 WSL 접근 승인창이 뜨면 Approve for session을 누르세요"를 덧붙인다 — 코덱스 앱은 WSL 밖이라 답을 보낼 때 한 번 묻는다.
 
 ## 시키기 — "코덱스에 … 시켜"(연결된 뒤)
 `.baton/pair.json`의 세션 ID로 `agentlayer send --json --cwd <cwd> <codex_session> "<요청> (회신 주소 al-xxxxxx)"`. 직전 wait가 끝나 있으면 다시 켠다. 연결 정보가 없으면 "연결하기"부터.
